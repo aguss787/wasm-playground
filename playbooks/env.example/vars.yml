@@ -1,0 +1,19 @@
+### Host provision config ###
+
+# The SSH key files to use for the created Ansible user.
+# All playbooks other than the provision playbook will use the Ansible user to access the hosts.
+# TODO:
+#   - Generate new keypair, e.g. using `ssh-keygen -t rsa -b 4096 -f ./env/ssh_keys/ansible`
+#   - Set permission on the new private key file to only be readable by the curent user: `chmod 0600 ./env/ssh_keys/ansible`
+ansible_ssh_public_key_file: "{{ inventory_dir }}/ssh_keys/ansible.pub"
+ansible_ssh_private_key_file: "{{ inventory_dir }}/ssh_keys/ansible" # (Ansible special variable)
+
+# Additional privileged users to create.
+# Each administrator should have their own user for SSH access instead of using root.
+additional_users:
+  - name: user
+    ssh_pubkey_files:
+      - "{{ inventory_dir }}/ssh_keys/user.pub"
+
+php_demo_fqdn: php.demo.agus.dev
+letsencrypt_email: agus.sentosa787@gmail.com

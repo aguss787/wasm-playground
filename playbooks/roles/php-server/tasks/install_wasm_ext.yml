@@ -1,0 +1,60 @@
+- name: Git checkout
+  become: yes
+  git:
+    repo: 'https://github.com/wasmerio/wasmer-php'
+    dest: /opt/wasmer-php
+    version: master
+
+- name: Install Phpize
+  become: yes
+  package:
+    name: php8.0-dev
+    state: present
+
+- name: Phpize
+  become: yes
+  shell:
+    cmd: phpize
+    chdir: /opt/wasmer-php/ext
+
+- name: Configure
+  become: yes
+  shell:
+    cmd: ./configure --enable-wasmer
+    chdir: /opt/wasmer-php/ext
+
+- name: Make
+  become: yes
+  make:
+    chdir: /opt/wasmer-php/ext
+
+- name: Make Test
+  become: yes
+  shell:
+    cmd: echo "n" | make test
+    chdir: /opt/wasmer-php/ext
+
+- name: Make Install
+  become: yes
+  make:
+    chdir: /opt/wasmer-php/ext
+    target: install
+  notify: Restart PHP8.0-FPM
+
+- name: Add ext to PHP8-FPM ini file
+  become: yes
+  lineinfile:
+    path: /etc/php/8.0/fpm/php.ini
+    state: present
+    line: extension=wasm
+    insertafter: 'extension='
+  notify: Restart PHP8.0-FPM
+
+- name: Add ext to PHP8-CLI ini file
+  become: yes
+  lineinfile:
+    path: /etc/php/8.0/cli/php.ini
+    state: present
+    line: extension=wasm
+    insertafter: 'extension='
+  notify: Restart PHP8.0-FPM

@@ -1,0 +1,39 @@
+# vars:
+#   ansible_ssh_public_key_file: <path>
+#   additional_users:
+#     - name: <string>
+#       ssh_pubkey_files: <list of paths>
+
+- name: Provision instances
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update APT packages
+      apt:
+        upgrade: "yes"
+        update_cache: yes
+  
+    - name: Create Ansible user
+      include_tasks: ./create_user.yml
+      vars:
+        user:
+          name: ansible
+          ssh_pubkey_files:
+            - "{{ ansible_ssh_public_key_file }}"
+      tags: always
+
+    - name: Create additional users
+      include_tasks: ./create_user.yml
+      loop: "{{ additional_users }}"
+      loop_control:
+        loop_var: user
+      tags: always
+
+    - name: Move /opt Ownership to ansible
+      file:
+        path: /opt/
+        state: directory
+        mode: '755'
+        owner: ansible
+        group: ansible
+        recurse: true

@@ -1,0 +1,24 @@
+# vars:
+#   user:
+#     name: <string>
+#     ssh_pubkey_files: <list of paths>
+
+- name: Create user
+  user:
+    name: "{{ user.name }}"
+    groups: sudo
+    shell: /bin/bash
+
+- name: Allow passwordless sudo
+  lineinfile:
+    create: yes
+    path: "/etc/sudoers.d/{{ user.name }}"
+    regexp: "^{{ user.name }}"
+    line: "{{ user.name }} ALL=(ALL) NOPASSWD:ALL"
+    validate: "visudo -cf %s"
+
+- name: Set SSH authorized public key(s)
+  authorized_key:
+    user: "{{ user.name }}"
+    key: "{{ item }}"
+  with_file: "{{ user.ssh_pubkey_files }}"

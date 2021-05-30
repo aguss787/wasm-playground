@@ -1,0 +1,42 @@
+- name: Install PHP8
+  include_tasks: install_php8.yml
+  tags: always
+
+- name: Install Wasm Extention
+  include_tasks: install_wasm_ext.yml
+  tags: always
+
+- name: Install PHP Demo Server
+  include_tasks: install_demo_server.yml
+  tags: always
+
+- name: Install PHP Webserver
+  include_tasks: install_nginx.yml
+  tags: always
+
+- name: Add ansible to Group www-data
+  become: yes
+  user:
+    name: ansbile
+    groups: www-data
+    append: yes
+
+- name: Give Permission to www-data to Access Storage Directory
+  become: yes
+  file:
+    path: /opt/wasm-playground/earth/storage
+    state: directory
+    owner: ansible
+    group: www-data
+    recurse: yes
+    mode: u=rwX,g=rwX,o=rX
+
+- name: Give Permission to www-data to Access Bootstrap Cache
+  become: yes
+  file:
+    path: /opt/wasm-playground/earth/bootstrap/cache
+    state: directory
+    owner: ansible
+    group: www-data
+    recurse: yes
+    mode: u=rwX,g=rwX,o=rX

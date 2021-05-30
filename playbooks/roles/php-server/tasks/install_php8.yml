@@ -1,0 +1,17 @@
+- name: Add ppa Repository
+  become: yes
+  apt_repository: repo=ppa:ondrej/php
+
+- name: Update APT packages
+  become: yes
+  apt:
+    upgrade: "yes"
+    update_cache: yes
+
+- name: Install PHP8
+  become: yes
+  package:
+    name: php8.0-fpm
+    state: present
+  tags: packages
+  notify: Restart PHP8.0-FPM

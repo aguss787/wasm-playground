@@ -1,0 +1,25 @@
+- name: Install Nginx
+  become: yes
+  package:
+    name: nginx
+    state: present
+  tags: packages
+  notify: Restart Nginx
+
+- name: Add Nginx domain configuration
+  become: yes
+  template:
+    src: "nginx-php.j2"
+    dest: /etc/nginx/sites-available/php-mm
+    mode: 0644
+  notify: Restart Nginx
+  tags: config
+
+- name: Enable Nginx domain configuration
+  become: yes
+  file:
+    src: /etc/nginx/sites-available/php-mm
+    dest: /etc/nginx/sites-enabled/php-mm
+    state: link
+  notify: Restart Nginx
+  tags: config

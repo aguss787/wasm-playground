@@ -1,0 +1,33 @@
+- name: Prepare rust installation directory
+  file:
+    path: /opt/rustup
+    state: directory
+
+- name: Download rustup Installer
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /opt/rustup/installer
+    mode: '744'
+
+- name: Install rustup
+  shell:
+    cmd: ./installer -t wasm32-unknown-unknown -y
+    chdir: /opt/rustup
+
+- name: Put cargo in /usr/local/bin
+  become: yes
+  file:
+    src: /home/ansible/.cargo/bin/cargo
+    dest: /usr/local/bin/cargo
+    state: link
+
+- name: Git checkout
+  git:
+    repo: 'https://github.com/aguss787/wasm-playground.git'
+    dest: /opt/wasm-playground
+    version: master
+
+- name: Compile wasm
+  shell:
+    cmd: cargo build --target wasm32-unknown-unknown --release
+    chdir: /opt/wasm-playground/tesseract

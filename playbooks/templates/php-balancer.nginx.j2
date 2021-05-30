@@ -1,0 +1,34 @@
+{% if use_letsencrypt %}{% extends "https.j2" %}{% else %}{% extends "http.j2" %}{% endif %}
+
+{% block upstream_block %}
+upstream php_demo_app {
+    # Always direct requests from a client IP to the same upstream (sticky/persistent session)
+    ip_hash;
+
+    {% for upstream_address in domain.upstream_addresses %}
+    server {{ upstream_address }}:8000;
+    {% endfor %}
+}
+{% endblock %}
+
+{% block server_block_contents %}
+    server_name {{ domain.fqdn }};
+
+    # Don't log favicon requests
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    # Proxy upstream
+    location / {
+        client_max_body_size 128M;
+
+        include proxy_params;
+
+        proxy_http_version 1.1;
+        proxy_connect_timeout 60;
+
+        # Pass upstream response to the client immediately
+        proxy_buffering off;
+
+        proxy_pass http://php_demo_app;
+    }
+{% endblock %}

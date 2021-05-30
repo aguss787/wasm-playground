@@ -1,0 +1,19 @@
+---
+- name: Install Demo PHP Server
+  hosts: php
+  roles:
+    - php-server
+    - wasm-rust
+
+- name: Install nginx and https
+  hosts: php
+  roles:
+    - role: nginx
+      vars:
+        domains:
+          - name: php-balancer
+            fqdn: "{{ php_demo_fqdn }}"
+            config_template: "{{ playbook_dir }}/templates/php-balancer.nginx.j2"
+            upstream_addresses: "{{ groups['php'] | unique | ipaddr('network') }}"
+            auth_basic_user: ""
+        letsencrypt_service_admin_email: "{{ letsencrypt_email }}"

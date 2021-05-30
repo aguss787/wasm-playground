@@ -1,0 +1,59 @@
+- name: Git checkout
+  git:
+    repo: 'https://github.com/aguss787/wasm-playground.git'
+    dest: /opt/wasm-playground
+    version: master
+
+- name: Install Composer Dependency
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php-zip
+    - unzip
+
+- name: Prepare Composer Dir
+  file:
+    path: /opt/composer/
+    state: directory
+
+- name: Download Composer
+  shell:
+    cmd: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    chdir: /opt/composer
+
+- name: Install Composer
+  become: yes
+  shell:
+    cmd: php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    chdir: /opt/composer
+
+- name: Install PHP Server Dependency
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php-intl
+    - php-json
+    - php-curl
+    - php-mbstring
+    - php-gd
+    - php-memcached
+
+- name: Download and installs all libs and dependencies outlined in the composer.lock
+  community.general.composer:
+    command: install
+    working_dir: /opt/wasm-playground/earth
+
+- name: Copy env
+  copy:
+    src: /opt/wasm-playground/earth/.env.example
+    remote_src: yes
+    dest: /opt/wasm-playground/earth/.env
+
+- name: Generate App Key
+  shell:
+    cmd: php artisan key:generate
+    chdir: /opt/wasm-playground/earth
