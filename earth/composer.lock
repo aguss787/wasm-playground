@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7759431e303e2d722a264a8a991a9e84",
+    "content-hash": "0f231b85cd99c05f7f424573129e26e9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4766,6 +4766,55 @@
                 }
             ],
             "time": "2020-11-12T00:07:28+00:00"
+        },
+        {
+            "name": "wasm/wasm",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wasmerio/wasmer-php.git",
+                "reference": "d592186dfff0c980314f6dac62f6e26b51478fb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wasmerio/wasmer-php/zipball/d592186dfff0c980314f6dac62f6e26b51478fb1",
+                "reference": "d592186dfff0c980314f6dac62f6e26b51478fb1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-wasm": "^1.0.0"
+            },
+            "replace": {
+                "php-wasm/php-wasm": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "@dev",
+                "phpdocumentor/flyfinder": "@dev",
+                "phpdocumentor/phpdocumentor": "@dev",
+                "phpunit/phpunit": "@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wasm\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wasmer Engineering Team",
+                    "email": "engineering@wasmer.io"
+                }
+            ],
+            "description": "A complete and mature WebAssembly runtime for PHP based on Wasmer",
+            "support": {
+                "issues": "https://github.com/wasmerio/wasmer-php/issues",
+                "source": "https://github.com/wasmerio/wasmer-php/tree/1.1.0"
+            },
+            "time": "2021-05-18T13:01:06+00:00"
         },
         {
             "name": "webmozart/assert",

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/earth/earth.iml" filepath="$PROJECT_DIR$/earth/earth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/playbooks/playbooks.iml" filepath="$PROJECT_DIR$/playbooks/playbooks.iml" />
       <module fileurl="file://$PROJECT_DIR$/tesseract/.idea/tesseract.iml" filepath="$PROJECT_DIR$/tesseract/.idea/tesseract.iml" />
     </modules>
   </component>
