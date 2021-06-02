@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Tesseract\TesseractController;
 
-class SummerController extends Controller
+class SumController extends Controller
 {
     /**
      * Run the wasm example.

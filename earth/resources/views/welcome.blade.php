@@ -401,6 +401,9 @@
     <li>
         <a href="/sum">simple function call with array example</a>
     </li>
+    <li>
+        <a href="/path_sum">function call with struct array example</a>
+    </li>
 </ul>
 </body>
 </html>

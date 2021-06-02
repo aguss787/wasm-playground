@@ -11,23 +11,23 @@ class Timer
     /**
      * @var float
      */
-    private $start_time;
+    private $startTime;
 
     public function start() {
-        $this->start_time = microtime(true);
+        $this->startTime = microtime(true);
     }
 
     public function stop() {
-        return microtime(true) - $this->start_time;
+        return microtime(true) - $this->startTime;
     }
 
     public function run(Closure $param)
     {
-        $start_time = microtime(true);
+        $startTime = microtime(true);
 
         $param();
 
-        $stop_time = microtime(true) - $start_time;
-        echo 'Execution time: '.number_format((float) $stop_time, 10).'ms.<br />';
+        $stopTime = microtime(true) - $startTime;
+        echo 'Execution time: '.number_format((float) $stopTime, 10).'ms.<br />';
     }
 }

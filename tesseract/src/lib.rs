@@ -27,6 +27,11 @@ pub struct Path {
     cost: i32,
 }
 
+#[no_mangle]
+pub fn total_path_cost(paths: Vec<Path>) -> i32 {
+    paths.iter().map(|i| i.cost).sum()
+}
+
 use std::alloc::{alloc, dealloc, Layout};
 use std::mem;
 use std::ptr::null_mut;

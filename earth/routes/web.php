@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddOneController;
-use App\Http\Controllers\SummerController;
+use App\Http\Controllers\PathSumCostController;
+use App\Http\Controllers\SumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/add_one', [AddOneController::class, 'run']);
-Route::get('/sum', [SummerController::class, 'run']);
+Route::get('/sum', [SumController::class, 'run']);
+Route::get('/path_sum', [PathSumCostController::class, 'run']);
