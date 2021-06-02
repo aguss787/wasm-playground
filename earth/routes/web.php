@@ -15,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AddOneController::class, 'run']);
-Route::get('/summer', [SummerController::class, 'run']);
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/add_one', [AddOneController::class, 'run']);
+Route::get('/sum', [SummerController::class, 'run']);
