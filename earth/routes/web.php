@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdderController;
+use App\Http\Controllers\AddOneController;
+use App\Http\Controllers\SummerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AdderController::class, 'run']);
+Route::get('/', [AddOneController::class, 'run']);
+Route::get('/summer', [SummerController::class, 'run']);
