@@ -404,6 +404,9 @@
     <li>
         <a href="/path_sum">function call with struct array example</a>
     </li>
+    <li>
+        <a href="/shortest_path">shortest path example (MM 2021)</a>
+    </li>
 </ul>
 </body>
 </html>

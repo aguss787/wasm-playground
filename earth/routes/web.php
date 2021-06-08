@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddOneController;
 use App\Http\Controllers\PathSumCostController;
+use App\Http\Controllers\ShortestPathController;
 use App\Http\Controllers\SumController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::get('/', function () {
 Route::get('/add_one', [AddOneController::class, 'run']);
 Route::get('/sum', [SumController::class, 'run']);
 Route::get('/path_sum', [PathSumCostController::class, 'run']);
+Route::get('/shortest_path', [ShortestPathController::class, 'run']);

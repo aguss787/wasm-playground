@@ -72,6 +72,6 @@ class WasmController
         $length = $this->memoryView->getI32($ptr + 8);
 
         ($this->free)($ptr, 16);
-        ($this->free)($arrayBegin, $length);
+        ($this->free)($arrayBegin, $length * 4);
     }
 }
