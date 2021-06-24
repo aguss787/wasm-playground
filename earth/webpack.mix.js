@@ -11,7 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.mjs$/i,
+                resolve: {byDependency: {esm: {fullySpecified: false}}},
+            },
+        ],
+    },
+}).js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

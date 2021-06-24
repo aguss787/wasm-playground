@@ -392,6 +392,8 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
+
+    <script src="/js/app.js"></script>
 </head>
 <body class="antialiased">
 <ul>

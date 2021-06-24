@@ -35,7 +35,7 @@ pub fn total_path_cost(paths: Vec<Path>) -> i32 {
 #[no_mangle]
 pub fn shortest_path(paths: Vec<Path>, start: i32, finish: i32) -> (i32, Vec<(i32, i32)>) {
     let total = paths.iter().map(|i| i.cost).sum::<i32>() * 2;
-    let mut adj_list: HashMap<i32, Vec<(i32, i32)>> = HashMap::new();
+    let mut adj_list = HashMap::new();
 
     paths.iter().for_each(|i| {
         let list = {
@@ -101,7 +101,7 @@ fn trace_path_iter(costs: &mut HashMap<i32, (i32, Option<i32>)>, cur: Option<i32
     match cur {
         None => vec!(),
         Some(node) => {
-            let (total, prev) = costs.get(&node).unwrap().clone();
+            let (total, prev) = costs.get(&node).unwrap_or(&(0, None)).clone();
 
             let mut res = trace_path_iter(costs, prev.clone());
             res.push((node, total.clone()));
@@ -147,6 +147,20 @@ mod tests {
         );
 
         assert_eq!(shortest_path(paths, 1, 3).1, vec!((1, 0), (2, 7), (3, 780)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn test_shortest_path_no_path() -> Result<(), String> {
+        let paths = vec!(
+            Path{from: 1, to: 2, cost: 7},
+            Path{from: 2, to: 3, cost: 780},
+            Path{from: 2, to: 3, cost: 790},
+            Path{from: 4, to: 5, cost: 790},
+        );
+
+        assert_eq!(shortest_path(paths, 1, 5).0, -1);
 
         Ok(())
     }

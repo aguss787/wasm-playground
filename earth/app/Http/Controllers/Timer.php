@@ -30,4 +30,13 @@ class Timer
         $stopTime = microtime(true) - $startTime;
         echo 'Execution time: '.number_format((float) $stopTime, 10).'ms.<br />';
     }
+
+    public function runReturn(Closure $param)
+    {
+        $startTime = microtime(true);
+
+        $param();
+
+        return microtime(true) - $startTime;
+    }
 }

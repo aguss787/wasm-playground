@@ -50,4 +50,12 @@ class Graph extends WasmStruct
     {
         return 16;
     }
+
+    /**
+     * @return Path[]
+     */
+    public function getPaths(): array
+    {
+        return $this->paths;
+    }
 }
