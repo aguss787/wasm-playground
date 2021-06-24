@@ -46,7 +46,7 @@ class ShortestPathController extends Controller
         $graph = null;
         $error = null;
         try {
-            $graph = DisplayableGraph::Parse($request->input);
+            $graph = DisplayableGraph::Parse((is_null($request->input)) ? "1" : $request->input );
         } catch (NegativeCostException $e) {
             $error = "You cannot have negative edge cost";
         } catch (NotEnoughTokenException $_) {
