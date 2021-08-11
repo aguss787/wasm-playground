@@ -22,7 +22,7 @@ svg {
     fill: black;
     font-size: medium;
     font-weight: bold;
-    text-anchor: "middle"
+    text-anchor: "middle";
 }
 
 .graph g.edge text {
@@ -45,7 +45,7 @@ svg {
 }
 
 .graph g.vertex.used circle {
-    fill: blue;
+    fill: #00d7ff;
     stroke: black;
     stroke-width: 2;
 }
